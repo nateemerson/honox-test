@@ -8,7 +8,7 @@ const className = css`
 export const POST = createRoute(async (c) => {
   const { name } = await c.req.parseBody<{name: string}>()
   const info = await c.env.MY_D1_DB.prepare(
-    "INSERT INTO Goals (GoalName) VALUES (?)"
+    "INSERT INTO Goals (GoalName) VALUES (?);"
   )
   .bind(name)
   .run()
