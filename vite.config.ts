@@ -18,7 +18,10 @@ export default defineConfig(({ mode }) => {
         devServer({
           entry: 'app/server.ts',
           env: getEnv({
-            d1Databases: 'DB',
+            bindings: {
+              Name: 'Hono',
+            },
+            d1Databases: ['MY_D1_DB'],
             d1Persist: true,
           })
         })
