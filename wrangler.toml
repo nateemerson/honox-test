@@ -2,6 +2,6 @@ name = "honox-test"
 main = "app/server.ts"
 
 [[d1_databases]]
-binding = "DB" # i.e. available in your Worker on env.DB
+binding = "MY_D1_DB" # i.e. available in your Worker on env.DB
 database_name = "prod-honox-test"
 database_id = "ccda2b7a-ad72-4d3b-a547-4f752c64c413"
