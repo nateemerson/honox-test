@@ -27,7 +27,8 @@ export default createRoute(async (c) => {
           <li>
             <a href={`/goals/${goal.GoalId}`}>
               {goal.GoalName}
-            </a>
+            </a>{' '}
+            (<a href={`/goals/${goal.GoalId}/edit`}>Edit</a>)
             <form method="GET" action={`/goals/${goal.GoalId}/delete`}>
               <input type="submit" value="Delete" />
             </form>
