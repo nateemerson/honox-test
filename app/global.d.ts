@@ -4,6 +4,11 @@ type Head = {
   title?: string
 }
 
+type Goal = {
+  GoalId: number;
+  GoalName: string;
+}
+
 declare module 'hono' {
   interface Env {
     Variables: {
