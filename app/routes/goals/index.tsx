@@ -4,7 +4,6 @@ import { createRoute } from 'honox/factory'
 const className = css`
   font-family: sans-serif;
 `
-
 export const POST = createRoute(async (c) => {
   const { todo } = await c.req.parseBody<{todo: string}>()
   const info = await c.env.MY_D1_DB.prepare(
@@ -24,7 +23,16 @@ export default createRoute(async (c) => {
     <div class={className}>
       <h1>Goals</h1>
       <ul>
-        {results.results.map((goal: any) => <li>{goal.GoalName}</li>)}
+        {results.results.map((goal: any) =>
+          <li>
+            <a href={`/goals/${goal.GoalId}`}>
+              {goal.GoalName}
+            </a>
+            <form method="GET" action={`/goals/${goal.GoalId}/delete`}>
+              <input type="submit" value="Delete" />
+            </form>
+          </li>
+        )}
       </ul>
 
       <form method="POST">
