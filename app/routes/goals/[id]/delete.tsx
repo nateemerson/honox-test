@@ -1,11 +1,11 @@
 import { createRoute } from 'honox/factory'
 
 export default createRoute(async (c) => {
-  const goalId = c.req.param('goalid')
+  const id = c.req.param('id')
   const deleted = await c.env.MY_D1_DB.prepare(
-    "DELETE FROM Goals WHERE GoalId = ?;"
+    "DELETE FROM goal WHERE id = ?;"
   )
-    .bind(goalId)
+    .bind(id)
     .run()
 
   console.log('IN [goalid]/delete.tsx DELETE')

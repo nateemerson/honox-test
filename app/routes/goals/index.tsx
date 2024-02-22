@@ -5,18 +5,18 @@ const className = css`
   font-family: sans-serif;
 `
 export const POST = createRoute(async (c) => {
-  const { todo } = await c.req.parseBody<{todo: string}>()
+  const { name } = await c.req.parseBody<{name: string}>()
   const info = await c.env.MY_D1_DB.prepare(
-    "INSERT INTO Goals (GoalName) VALUES (?);"
+    "INSERT INTO goal (name) VALUES (?);"
   )
-  .bind(todo)
+  .bind(name)
   .run()
   return c.redirect('/goals')
 })
 
 export default createRoute(async (c) => {
   const results: D1Result = await c.env.MY_D1_DB.prepare(
-    "SELECT * FROM Goals;"
+    "SELECT * FROM goal;"
   ).all()
 
   return c.render(
@@ -25,11 +25,11 @@ export default createRoute(async (c) => {
       <ul>
         {results.results.map((goal: any) =>
           <li>
-            <a href={`/goals/${goal.GoalId}`}>
-              {goal.GoalName}
+            <a href={`/goals/${goal.id}`}>
+              {goal.name}
             </a>{' '}
-            (<a href={`/goals/${goal.GoalId}/edit`}>Edit</a>)
-            <form method="GET" action={`/goals/${goal.GoalId}/delete`}>
+            (<a href={`/goals/${goal.id}/edit`}>Edit</a>)
+            <form method="GET" action={`/goals/${goal.id}/delete`}>
               <input type="submit" value="Delete" />
             </form>
           </li>
@@ -37,7 +37,7 @@ export default createRoute(async (c) => {
       </ul>
 
       <form method="POST">
-        <input type="text" name="todo" />
+        <input type="text" name="name" />
         <input type="submit" />
       </form>
     </div>,

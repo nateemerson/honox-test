@@ -5,8 +5,8 @@ type Head = {
 }
 
 type Goal = {
-  GoalId: number;
-  GoalName: string;
+  id: number;
+  name: string;
 }
 
 declare module 'hono' {

@@ -2,21 +2,21 @@ import { createRoute } from 'honox/factory'
 import type { Goal } from '../../../global.d.ts'
 
 export const POST = createRoute(async (c) => {
-  const { GoalId, GoalName } = await c.req.parseBody<{GoalId: string, GoalName: string}>()
+  const { id, name } = await c.req.parseBody<{id: string, name: string}>()
   const info = await c.env.MY_D1_DB.prepare(
-    "UPDATE Goals SET GoalName = ? WHERE GoalId = ?;"
+    "UPDATE goal SET name = ? WHERE id = ?;"
   )
-  .bind(GoalName, GoalId)
+  .bind(name, id)
   .run()
-  return c.redirect(`/goals/${GoalId}/edit`)
+  return c.redirect(`/goals/${id}/edit`)
 })
 
 export default createRoute(async (c) => {
-  const goalId = c.req.param('goalid')
+  const id = c.req.param('id')
   const goal: Goal | null = await c.env.MY_D1_DB.prepare(
-    "SELECT * FROM Goals WHERE GoalId = ?;"
+    "SELECT * FROM goal WHERE id = ?;"
   )
-    .bind(goalId)
+    .bind(id)
     .first()
 
   if (!goal)
@@ -24,10 +24,10 @@ export default createRoute(async (c) => {
 
   return c.render(
     <div>
-      <h1>Editing: {goal.GoalName}</h1>
+      <h1>Editing: {goal.name}</h1>
       <form method="POST">
-        <input type="hidden" name="GoalId" value={goal.GoalId} />
-        <input type="text" name="GoalName" value={goal.GoalName} />
+        <input type="hidden" name="id" value={goal.id} />
+        <input type="text" name="name" value={goal.name} />
         <input type="submit" />
       </form>
       <a href="/goals">Back to Goals</a>

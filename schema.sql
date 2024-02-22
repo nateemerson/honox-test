@@ -1,3 +1,16 @@
-DROP TABLE IF EXISTS Goals;
-CREATE TABLE IF NOT EXISTS Goals (GoalId INTEGER PRIMARY KEY, GoalName TEXT);
-INSERT INTO Goals (GoalID, GoalName) VALUES (1, 'First goal'), (2, 'Goal #2'), (3, 'Goal (3)');
+DROP TABLE IF EXISTS goal;
+CREATE TABLE IF NOT EXISTS goal (id INTEGER PRIMARY KEY, name TEXT);
+INSERT INTO goal (id, name) VALUES (1, 'First goal'), (2, 'Goal #2'), (3, 'Goal (3)');
+
+DROP TABLE IF EXISTS user;
+CREATE TABLE IF NOT EXISTS user (
+    id TEXT NOT NULL PRIMARY KEY
+);
+
+DROP TABLE IF EXISTS session;
+CREATE TABLE IF NOT EXISTS session (
+    id TEXT NOT NULL PRIMARY KEY,
+    expires_at INTEGER NOT NULL,
+    user_id TEXT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES user(id)
+);
