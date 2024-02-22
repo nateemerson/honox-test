@@ -2,7 +2,7 @@
   "name": "basic",
   "type": "module",
   "scripts": {
-    "dev": "bun run build && wrangler pages dev ./dist",
+    "dev": "vite",
     "build": "vite build --mode client && vite build",
     "preview": "wrangler pages dev ./dist",
     "deploy": "$npm_execpath run build && wrangler pages deploy ./dist"
